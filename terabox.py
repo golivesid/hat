@@ -144,12 +144,20 @@ def ban_user(message):
         return
 
     user_id_to_ban = int(message.text.split()[1])
+    try:
+        user_info = bot.get_chat(user_id_to_ban)
+        except telebot.apihelper.ApiException as e:
+        if "chat not found" in str(e).lower():
+            bot.reply_to(message, "ɪɴᴠᴀʟɪᴅ ᴜꜱᴇʀ ɪᴅ.")
+        else:
+            bot.reply_to(message, f"Error: {str(e)}")
+        return
     if banned_users_collection.find_one({'user_id': user_id_to_ban}):
-        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_ban).first_name}</a> ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
+        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{user_info.first_name}</a> ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
         return
 
     banned_users_collection.insert_one({'user_id': user_id_to_ban})
-    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_ban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
+    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{user_info.first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
 
 # Unban command
 @bot.message_handler(commands=['unban'])
