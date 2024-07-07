@@ -145,16 +145,16 @@ def ban_user(message):
 
     user_id_to_ban = int(message.text.split()[1])
     if banned_users_collection.find_one({'user_id': user_id_to_ban}):
-        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_unban).first_name}</a> ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
+        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_ban).first_name}</a> ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
         return
 
     banned_users_collection.insert_one({'user_id': user_id_to_ban})
-    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_unban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
+    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_ban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
 
 # Unban command
 @bot.message_handler(commands=['unban'])
 def unban_user(message):
-    if message.from_user.id != os.getenv('OWNER_ID'):
+    if str(message.from_user.id) != os.getenv('OWNER_ID'):
         bot.reply_to(message, "ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪꜱᴇᴅ ᴛᴏ ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ")
         return
 
