@@ -165,11 +165,11 @@ def unban_user(message):
     user_id_to_unban = int(message.text.split()[1])
 
     if not banned_users_collection.find_one({'user_id': user_id_to_unban}):
-        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_unban).first_name}</a> ɪꜱ ɴᴏᴛ ᴄᴜʀʀᴇɴᴛʟʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
+        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_unban}'>{bot.get_chat(user_id_to_unban).first_name}</a> ɪꜱ ɴᴏᴛ ᴄᴜʀʀᴇɴᴛʟʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
         return
 
     banned_users_collection.delete_one({'user_id': user_id_to_unban})
-    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.get_chat(user_id_to_unban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ᴜɴʙᴀɴɴᴇᴅ.", parse_mode='HTML')
+    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_unban}'>{bot.get_chat(user_id_to_unban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ᴜɴʙᴀɴɴᴇᴅ.", parse_mode='HTML')
 
 # Handle messages
 @bot.message_handler(func=lambda message: True)
