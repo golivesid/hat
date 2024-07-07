@@ -148,10 +148,12 @@ def ban_user(message):
         user_info = bot.get_chat(user_id_to_ban)
         except telebot.apihelper.ApiException as e:
         if "chat not found" in str(e).lower():
-            bot.reply_to(message, "ɪɴᴠᴀʟɪᴅ ᴜꜱᴇʀ ɪᴅ.")
+            bot.reply_to(message, "Invalid chat ID or username.")
         else:
             bot.reply_to(message, f"Error: {str(e)}")
         return
+
+    
     if banned_users_collection.find_one({'user_id': user_id_to_ban}):
         bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{user_info.first_name}</a> ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
         return
