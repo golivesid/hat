@@ -137,6 +137,9 @@ def send_welcome(message):
 def handle_message(message):
     user = message.from_user
 
+
+    if message.text.startswith('/ban') or message.text.startswith('/unban'):
+        return
     # Check if user is banned
     if banned_users_collection.find_one({'user_id': user.id}):
         bot.send_message(message.chat.id, "You are banned from using this bot.")
