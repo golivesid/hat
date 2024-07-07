@@ -136,21 +136,20 @@ def send_welcome(message):
 @bot.message_handler(commands=['ban'])
 def ban_user(message):
     if str(message.from_user.id) != os.getenv('OWNER_ID'):
-        bot.reply_to(message, "You are not authorized to use this command.")
+        bot.reply_to(message, "ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪꜱᴇᴅ ᴛᴏ ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ")
         return
 
     if len(message.text.split()) < 2:
-        bot.reply_to(message, "Please specify a user to ban.")
+        bot.reply_to(message, "ᴘʟᴇᴀꜱᴇ ꜱᴘᴇᴄɪꜰʏ ᴀ ᴜꜱᴇʀ ᴛᴏ ʙᴀɴ.")
         return
 
     user_id_to_ban = int(message.text.split()[1])
-
     if banned_users_collection.find_one({'user_id': user_id_to_ban}):
-        bot.reply_to(message, "This user is already banned.")
+        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.getChat(user_id_to_unban).first_name}</a> ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
         return
 
     banned_users_collection.insert_one({'user_id': user_id_to_ban})
-    bot.reply_to(message, f"**User {user_id_to_ban}** has been banned.", parse_mode=telebot.types.ParseMode.MARKDOWN_V2)
+    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.getChat(user_id_to_unban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
 
 # Unban command
 @bot.message_handler(commands=['unban'])
@@ -166,11 +165,11 @@ def unban_user(message):
     user_id_to_unban = int(message.text.split()[1])
 
     if not banned_users_collection.find_one({'user_id': user_id_to_unban}):
-        bot.reply_to(message, "ᴛʜɪꜱ ᴜꜱᴇʀ ɪꜱ ɴᴏᴛ ᴄᴜʀʀᴇɴᴛʟʏ ʙᴀɴɴᴇᴅ.")
+        bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.getChat(user_id_to_unban).first_name}</a> ɪꜱ ɴᴏᴛ ᴄᴜʀʀᴇɴᴛʟʏ ʙᴀɴɴᴇᴅ.", parse_mode='HTML')
         return
 
     banned_users_collection.delete_one({'user_id': user_id_to_unban})
-    bot.reply_to(message, f"ᴜꜱᴇʀ {user_id_to_unban} ʜᴀꜱ ʙᴇᴇɴ ᴜɴʙᴀɴɴᴇᴅ.")
+    bot.reply_to(message, f"ᴜꜱᴇʀ <a href='tg://user?id={user_id_to_ban}'>{bot.getChat(user_id_to_unban).first_name}</a> ʜᴀꜱ ʙᴇᴇɴ ᴜɴʙᴀɴɴᴇᴅ.", parse_mode='HTML')
 
 # Handle messages
 @bot.message_handler(func=lambda message: True)
