@@ -146,12 +146,6 @@ def ban_user(message):
     user_id_to_ban = int(message.text.split()[1])
     try:
         user_info = bot.get_chat(user_id_to_ban)
-        except telebot.apihelper.ApiException as e:
-        if "chat not found" in str(e).lower():
-            bot.reply_to(message, "Invalid chat ID or username.")
-        else:
-            bot.reply_to(message, f"Error: {str(e)}")
-        return
 
     
     if banned_users_collection.find_one({'user_id': user_id_to_ban}):
