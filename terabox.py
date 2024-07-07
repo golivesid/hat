@@ -188,22 +188,22 @@ def handle_message(message):
 # Ban command
 @bot.message_handler(commands=['ban'])
 def ban_user(message):
-    if message.from_user.id != os.getenv('OWNER_ID'):
-        bot.reply_to(message, "ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪꜱᴇᴅ ᴛᴏ ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ")
+    if str(message.from_user.id) != os.getenv('OWNER_ID'):
+        bot.reply_to(message, "You are not authorized to use this command.")
         return
 
     if len(message.text.split()) < 2:
-        bot.reply_to(message, "ᴘʟᴇᴀꜱᴇ ꜱᴘᴇᴄɪꜰʏ ᴀ ᴜꜱᴇʀ ᴛᴏ ʙᴀɴ.")
+        bot.reply_to(message, "Please specify a user to ban.")
         return
 
     user_id_to_ban = int(message.text.split()[1])
 
     if banned_users_collection.find_one({'user_id': user_id_to_ban}):
-        bot.reply_to(message, "ᴛʜɪꜱ ᴜꜱᴇʀ ɪꜱ ᴀʟʀᴇᴀᴅʏ ʙᴀɴɴᴇᴅ.")
+        bot.reply_to(message, "This user is already banned.")
         return
 
     banned_users_collection.insert_one({'user_id': user_id_to_ban})
-    bot.reply_to(message, f"ᴜꜱᴇʀ {user_id_to_ban} ʜᴀꜱ ʙᴇᴇɴ ʙᴀɴɴᴇᴅ.")
+    bot.reply_to(message, f"**User {user_id_to_ban}** has been banned.", parse_mode=telebot.types.ParseMode.MARKDOWN_V2)
 
 # Unban command
 @bot.message_handler(commands=['unban'])
