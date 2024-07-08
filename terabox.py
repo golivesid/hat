@@ -24,7 +24,7 @@ app = Flask(__name__)
 # Fetch User Member or Not
 def is_member(user_id):
     try:
-        member_status = bot.get_chat_member('-1001581212582', user_id)
+        member_status = bot.get_chat_member('-1001911851456', user_id)
         return member_status.status in ['member', 'administrator', 'creator']
     except:
         return False
@@ -116,8 +116,8 @@ def send_welcome(message):
 
     inline_keyboard = telebot.types.InlineKeyboardMarkup()
     inline_keyboard.row(
-     telebot.types.InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url=f"https://t.me/+Gh5Cq7m-V003ZjY1"),
-     telebot.types.InlineKeyboardButton("ᴅᴇᴠᴇʟᴏᴘᴇʀ ⚡️", url="tg://user?id=1008848605")
+     telebot.types.InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url=f"https://t.me/+qdLjzK5bWoViOWQ1"),
+     telebot.types.InlineKeyboardButton("ᴅᴇᴠᴇʟᴏᴘᴇʀ ⚡️", url="https://t.me/+qdLjzK5bWoViOWQ1")
     )
 
     bot.send_message(
@@ -191,7 +191,7 @@ def handle_message(message):
             message.chat.id,
             "ʏᴏᴜ ᴍᴜsᴛ ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ.",
             reply_markup=telebot.types.InlineKeyboardMarkup().add(
-                telebot.types.InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url=f"https://t.me/+Gh5Cq7m-V003ZjY1")
+                telebot.types.InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url=f"https://t.me/+qdLjzK5bWoViOWQ1")
             )
         )
         return
